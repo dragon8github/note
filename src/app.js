@@ -1,3 +1,22 @@
+wilddog.initializeApp({
+    syncURL: "https://wd6326449524sjxxpb.wilddogio.com",
+})
+
+var ref = wilddog.sync().ref()
+
+ref.set({
+  "messageboard":{
+    "message1":{
+        "content" : "Wilddog, Cool!",
+        "presenter" : "Jack"
+    }
+  }
+})
+
+ref.on("value", function(snapshot) {
+    console.log(snapshot.val());
+});
+
 layer.config({
     shade: 0,
     resize: true,

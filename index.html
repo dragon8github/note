@@ -2,8 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>📒 📕 📗 📘 📓 📙 📚 📖 📝 🗒 📋</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- icon -->
+    <link rel="icon" href="./assets/favicon.png" type="image/x-icon">
     <!-- jquery -->
     <script src="./libs/jquery.min.js"></script>
     <!-- jquery -->
@@ -12,63 +14,57 @@
     <script src="./libs/lodash.min.js"></script>
     <!-- Vue -->
     <script src="./libs/vue.min.js"></script>
-    
+    <!-- moment -->
+    <script src="./libs/moment/moment.min.js"></script>
+    <script src="./libs/moment/zh-cn.js"></script>
     <!-- common.css -->
     <link rel="stylesheet" href="./css/common.css">
-    <style>
-    body, html {
-        padding: 0;
-        margin: 0;
-        position: absolute;
-        top: 0; right: 0; bottom: 0; left: 0;
-    }
-
-    *, *::after, *::before {
-        box-sizing: border-box;
-    }
-
-    #app {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: space-around;
-        align-items: flex-start;
-    }
-
-    .grid {
-        flex: 1;
-        height: 100%;
-        text-align: center;
-    }
-
-    .todo {
-        background-color: red;
-    }
-
-    .doing {
-        background-color: yellow;
-    }
-
-    .finish {
-        background-color: blue;
-    }
-    </style>
 </head>
 
 <body>
+
     <div id="app">
         <div class='grid todo'>
-            <h1>todo</h1>
+            <h1 class='title'>Todo</h1>
+            <div class='content'></div>
         </div>
         <div class='grid doing'>
-            <h1>doing</h1>
+            <h1 class='title'>Doing</h1>
+            <div class='content'></div>
         </div>
         <div class='grid finish'>
-            <h1>finish</h1>
+            <h1 class='title'>Finish</h1>
+            <div class='content'></div>
         </div>
     </div>
 </body>
 <script>
+layer.config({
+    shade: 0,
+    resize: true,
+    fixed: true,
+    scrollbar: false,
+    btn: '',
+    cancel: function (index, layero) {
+      return confirm('确定要关闭么') ? layer.close(index) : false
+    },
+    moveEnd: function () {
+        console.log('moveEnd')
+    },
+    resizing: function () {
+        console.log('resizing')
+    },
+})
 
+$('#app').click(e => {
+    const x = e.clientX + 'px'
+    const y = e.clientY + 'px'
+    layer.open({
+        offset: [x, y],
+        area: ['auto', '305px'],
+        title: `新建便签 —— ${moment(new Date()).format('YYYY/MM/DD HH:mm:ss')}`,
+        content: '<textarea class="note" placeholder="记笔记..."></textarea>',
+    })
+})
 </script>
 </html>

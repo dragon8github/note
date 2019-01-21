@@ -4,24 +4,69 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Vue -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
     <!-- jquery -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="./libs/jquery.min.js"></script>
     <!-- jquery -->
     <script src="./libs/layer-v3.1.1/layer/layer.js"></script>
+    <!-- lodash -->
+    <script src="./libs/lodash.min.js"></script>
+    <!-- Vue -->
+    <script src="./libs/vue.min.js"></script>
     
     <!-- common.css -->
     <link rel="stylesheet" href="./css/common.css">
     <style>
-    #app {
+    body, html {
+        padding: 0;
+        margin: 0;
+        position: absolute;
+        top: 0; right: 0; bottom: 0; left: 0;
+    }
 
+    *, *::after, *::before {
+        box-sizing: border-box;
+    }
+
+    #app {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: flex-start;
+    }
+
+    .grid {
+        flex: 1;
+        height: 100%;
+        text-align: center;
+    }
+
+    .todo {
+        background-color: red;
+    }
+
+    .doing {
+        background-color: yellow;
+    }
+
+    .finish {
+        background-color: blue;
     }
     </style>
 </head>
 
 <body>
-    <div id="app"></div>
+    <div id="app">
+        <div class='grid todo'>
+            <h1>todo</h1>
+        </div>
+        <div class='grid doing'>
+            <h1>doing</h1>
+        </div>
+        <div class='grid finish'>
+            <h1>finish</h1>
+        </div>
+    </div>
 </body>
 <script>
 

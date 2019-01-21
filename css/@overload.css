@@ -1,0 +1,8 @@
+#app ~ .layui-layer .layui-layer-content {
+    overflow: hidden;
+    padding: 0;
+}
+
+#app ~ .layui-layer .layui-layer-title {
+    background: #FFEB81;
+}

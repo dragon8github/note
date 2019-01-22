@@ -90,14 +90,32 @@ const clearEmptyLayer = () => {
     for (let i = __LAYER__.length - 1; i >= 0; i--) {
         // 获取当前索引记录的id
         const id = __LAYER__[i]
+        // 是否为空，如果为空那么返回true
+        const isEmpty = isEmptyContentLayer(id)
         // 判断 layer 内容是否为空
-        if (isEmptyContentLayer(id)) {
+        if (isEmpty) {
             // 从缓存中移除成员
             __LAYER__.splice(i, 1)
             // 关闭空标签
             closeLayerById(id)
         }
     }
+}
+
+/**
+ * 获取内容编辑区域
+ */
+const getContentArea = () => {
+    // 获取当前时间
+    const now = moment(new Date()).format('YYYY/MM/DD HH:mm:ss')
+    // html内容
+    const html = `
+        <div class='note-container' data-time='${now}'>
+            <textarea class='note' placeholder='记笔记...'></textarea>
+        </div>
+    `
+    // 返回一个 html 字符串
+    return html
 }
 
 /**
@@ -108,26 +126,34 @@ const newNote = () => {
     const { clientX, clientY } = event
     // 新建 layer 弹窗
     return layer.open({
+        // 弹窗类型
         type: 1,
-        offset: [clientY + 'px', clientX + 'px'],
-        area: [__W__ + 'px', __H__ + 'px'],
+        // 标题
         title: `新建便签`,
-        content: `<div class="note-container" data-time="${moment(new Date()).format('YYYY/MM/DD HH:mm:ss')}"><textarea class="note" placeholder="记笔记..."></textarea></div>`,
+        // 坐标
+        offset: [clientY + 'px', clientX + 'px'],
+        // 宽高
+        area: [__W__ + 'px', __H__ + 'px'],
+        // 内容
+        content: getContentArea(),
     })
 }
 
+/**
+ * say something ...
+ */
 $('#app').click(e => {
     // 清空所有空的layer
     clearEmptyLayer()
-
     // 新建便签
     const lay = newNote()
-
     // 添加到缓存中
     __LAYER__.push(lay)
 })
 
 /*
+//////////////////////////////////////////////
+//////////////////////////////////////////////
                    _ooOoo_
                   o8888888o
                   88" . "88

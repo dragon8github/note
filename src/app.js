@@ -148,9 +148,12 @@ const newNote = ({ clientX: __X__, clientY: __Y__ } = event) => {
  */
 const ctrlKeyHandle = ({ ctrlKey } = event) => {
     if (ctrlKey) {
+        // 鼠标形状变成 “+”
         $('#app').addClass('ctrlcursor')
     } else {
+        // 移除鼠标形状
         $('#app').removeClass('ctrlcursor')
+        // 重新绑定keydown
         $(window).one('keydown', ctrlKeyHandle)
     }
 }

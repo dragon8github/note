@@ -1,0 +1,4 @@
+/**
+ * 如果弹窗的内容为空，那么直接关闭弹窗
+ */
+const closeLayerIfEmpty = id => isEmptyContentLayer(id) && closeLayerById(id)

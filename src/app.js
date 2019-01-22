@@ -4,6 +4,9 @@
 const __LAYER__ = []
 const __W__ = 300
 const __H__ = 305
+const __TYPE__ = 1
+const __TITLE__ = '新建便签'
+const __PLACEHOLDER__ = '记笔记...'
 
 /**
  * 当 wilddog 加载成功才执行
@@ -78,11 +81,6 @@ const isEmptyContentLayer = id => maybe(_ => getLayerElementById(id).find('texta
 const closeLayerById = id => layer.close(id)
 
 /**
- * 如果弹窗的内容为空，那么直接关闭弹窗
- */
-const closeLayerIfEmpty = id => isEmptyContentLayer(id) && closeLayerById(id)
-
-/**
  * 清空所有空的 layer
  */
 const clearEmptyLayer = () => {
@@ -111,7 +109,7 @@ const getContentArea = () => {
     // html内容
     const html = `
         <div class='note-container' data-time='${now}'>
-            <textarea class='note' placeholder='记笔记...'></textarea>
+            <textarea class='note' placeholder='${__PLACEHOLDER__}'></textarea>
         </div>
     `
     // 返回一个 html 字符串
@@ -120,18 +118,20 @@ const getContentArea = () => {
 
 /**
  * 新建一个便签
+ * 使用示例 1； newNote()
+ * 使用示例 2； $('#app').click(newNote)
+ * 使用示例 3； $('#app').click(event => newNote(event))
+ * 使用示例 4； newNote({ clientX:0, clientY: 0 })
  */
-const newNote = () => {
-    // 获取当前点击对象的坐标
-    const { clientX, clientY } = event
+const newNote = ({ clientX: __X__, clientY: __Y__ } = event) => {
     // 新建 layer 弹窗
     return layer.open({
         // 弹窗类型
-        type: 1,
+        type: __TYPE__,
         // 标题
-        title: `新建便签`,
+        title: __TITLE__,
         // 坐标
-        offset: [clientY + 'px', clientX + 'px'],
+        offset: [__Y__ + 'px', __X__ + 'px'],
         // 宽高
         area: [__W__ + 'px', __H__ + 'px'],
         // 内容
@@ -142,11 +142,11 @@ const newNote = () => {
 /**
  * say something ...
  */
-$('#app').click(e => {
+$('#app').click(event => {
     // 清空所有空的layer
     clearEmptyLayer()
     // 新建便签
-    const lay = newNote()
+    const lay = newNote(event)
     // 添加到缓存中
     __LAYER__.push(lay)
 })

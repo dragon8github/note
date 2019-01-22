@@ -71,6 +71,21 @@ input:focus, textarea:focus {
     width: 100%;
     height: 100%;
 }
+    
+    input.note-title {
+        position: absolute;
+        top: -32px;
+        left: 20px;
+        background: transparent;
+        border: 0;
+        color: #333;
+        font-size: 14px;
+    }
+
+    input.note-title::-webkit-input-placeholder {color: #333; }
+    input.note-title:-moz-placeholder {color: #333; }
+    input.note-title::-moz-placeholder {color: #333; }
+    input.note-title:-ms-input-placeholder {color: #333; }
 
     textarea.note {
         width: 100%;
@@ -95,10 +110,11 @@ input:focus, textarea:focus {
 
 /* @overload */
 #app ~ .layui-layer .layui-layer-content {
-    overflow: hidden;
+    overflow: visible;
     padding: 0;
 }
 
 #app ~ .layui-layer .layui-layer-title {
     background: #FFEB81;
+    font-size: 0;
 }

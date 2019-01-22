@@ -49,6 +49,8 @@ layer.config({
     scrollbar: false,
     // 最大化按钮
     maxmin: true,
+    // 取消title
+    title: false,
     // 默认隐藏所有footer按钮
     btn: '',
     // 关闭弹窗事件
@@ -112,6 +114,7 @@ const getContentArea = () => {
     // html内容
     const html = `
         <div class='note-container'>
+            <input type="text" class='note-title' value='${__TITLE__}' placeholder='${__TITLE__}' />
             <textarea class='note' placeholder='${__PLACEHOLDER__}'></textarea>
         </div>
     `
@@ -131,7 +134,7 @@ const newNote = ({ clientX: __X__, clientY: __Y__ } = event) => {
     return layer.open({
         // 弹窗类型
         type: __TYPE__,
-        // 标题
+        // 空标题
         title: __TITLE__,
         // 坐标
         offset: [__Y__ + 'px', __X__ + 'px'],

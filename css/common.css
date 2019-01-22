@@ -22,6 +22,10 @@ input:focus, textarea:focus {
     overflow: hidden;
 }
 
+    .ctrlcursor:hover {
+        cursor: crosshair;
+    }
+
     .grid {
         flex: 1;
         position: relative;
@@ -60,7 +64,6 @@ input:focus, textarea:focus {
         .content {
             height: 100%;
             padding-top: 60px;
-            cursor: text;
         }
 
 .note-container {
@@ -78,7 +81,7 @@ input:focus, textarea:focus {
         position: relative;
     }
 
-    .note-container::after {
+    .note-container[data-time]::after {
         content: attr(data-time);
         position: absolute;
         color: #333;

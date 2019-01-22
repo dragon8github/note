@@ -1,5 +1,5 @@
 /**
- * 常量
+ * 全局常量
  */
 const __LAYER__ = []
 const __W__ = 300
@@ -101,14 +101,17 @@ const clearEmptyLayer = () => {
 }
 
 /**
+ * 获取当前时间
+ */
+const now = (format = 'YYYY/MM/DD HH:mm:ss') => moment(new Date()).format(format)
+
+/**
  * 获取内容编辑区域
  */
 const getContentArea = () => {
-    // 获取当前时间
-    const now = moment(new Date()).format('YYYY/MM/DD HH:mm:ss')
     // html内容
     const html = `
-        <div class='note-container' data-time='${now}'>
+        <div class='note-container'>
             <textarea class='note' placeholder='${__PLACEHOLDER__}'></textarea>
         </div>
     `
@@ -139,17 +142,41 @@ const newNote = ({ clientX: __X__, clientY: __Y__ } = event) => {
     })
 }
 
+
+/**
+ * 按住ctrl键的时候触发的函数
+ */
+const ctrlKeyHandle = ({ ctrlKey } = event) => {
+    if (ctrlKey) {
+        $('#app').addClass('ctrlcursor')
+    } else {
+        $('#app').removeClass('ctrlcursor')
+        $(window).one('keydown', ctrlKeyHandle)
+    }
+}
+
+/**
+ * 点击事件的回调函数
+ */
+const clickHandle = ({ ctrlKey } = event) => {
+    if (ctrlKey) {
+        // 清空所有空的layer
+        clearEmptyLayer()
+        // 新建便签
+        const lay = newNote(event)
+        // 添加到缓存中
+        __LAYER__.push(lay)
+    }
+}
+
 /**
  * say something ...
+ * @param {*} 参数 参数说明
  */
-$('#app').click(event => {
-    // 清空所有空的layer
-    clearEmptyLayer()
-    // 新建便签
-    const lay = newNote(event)
-    // 添加到缓存中
-    __LAYER__.push(lay)
-})
+$(window).one('keydown', ctrlKeyHandle)
+         .keyup(ctrlKeyHandle)
+         .click(clickHandle)
+
 
 /*
 //////////////////////////////////////////////
